@@ -6,7 +6,7 @@ const rm = require('../constants/responseMessage');
 const sc = require('../constants/statusCode');
 
 /**
- * @회원가입
+ * @SIGN_UP
  */
 router.post('/signup', async (req, res) => {
   // 비구조화 할당 (Destructuring assignment)
@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
 });
 
 /**
- * @로그인
+ * @LOGIN
  */
 router.post('/login', async (req, res) => {
   // request body에서 데이터 가져오기
@@ -61,6 +61,28 @@ router.post('/login', async (req, res) => {
       email: user.email,
     },
   }));
+});
+
+/**
+ * @UPDATE_USER
+ */
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { newName } = req.body;
+
+  if (!id || !newName) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NULL_VALUE));
+  }
+
+  const existingUser = users.filter(user => user.id === Number(id))[0];
+
+  if (!existingUser) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_USER));
+  }
+
+  const updatedUser = { ...existingUser, name: newName };
+
+  res.status(sc.OK).send(success(sc.OK, rm.UPDATE_SUCCESS, updatedUser));
 });
 
 module.exports = router;
