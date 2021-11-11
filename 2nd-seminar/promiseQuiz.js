@@ -28,5 +28,15 @@ const getOB = members => new Promise((resolve, reject) => {
   }, 500);
 });
 
+// promise ver.
 getOnline(members).then(getOB).then(console.log);
 getOffline(members).then(getYB).then(console.log);
+
+// async & await ver.
+const asyncFunc = async members => {
+  const onlineMembers = await getOnline(members);
+  const onlineObMembers = await getOB(onlineMembers);
+  console.log(onlineObMembers);
+}
+
+asyncFunc(members);
