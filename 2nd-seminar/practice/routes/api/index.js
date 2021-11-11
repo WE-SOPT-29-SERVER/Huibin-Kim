@@ -1,6 +1,5 @@
-const express = require('express'); // express 모듈 불러오기
-
-const router = express.Router(); // Router() 미들웨어 불러오기
+const express = require('express');
+const router = express.Router();
 
 router.get('/', (req, res) => {
   const result = {
@@ -9,5 +8,8 @@ router.get('/', (req, res) => {
   };
   res.status(200).send(result);
 });
+
+router.use('/blog', require('./blog'));
+router.use('/users', require('./users'));
 
 module.exports = router;
