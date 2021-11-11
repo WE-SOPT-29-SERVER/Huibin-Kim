@@ -85,4 +85,25 @@ router.put('/:id', async (req, res) => {
   res.status(sc.OK).send(success(sc.OK, rm.UPDATE_SUCCESS, updatedUser));
 });
 
+/**
+ * @DELETE_USER
+ */
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NULL_VALUE));
+  }
+
+  const existingUser = users.filter(user => user.id === Number(id))[0];
+
+  if (!existingUser) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_USER));
+  }
+
+  const newUsers = users.filter(user => user.id !== Number(id));
+
+  res.status(sc.OK).send(success(sc.OK, rm.DELETE_USER, newUsers));
+});
+
 module.exports = router;
