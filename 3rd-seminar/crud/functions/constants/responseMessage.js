@@ -18,4 +18,11 @@ module.exports = {
 
   // 프로필 수정
   UPDATE_SUCCESS: '프로필 수정 성공',
+
+  // 게시글
+  CREATED_POST: '게시글 생성 성공',
+  DELETE_POST: '게시글 삭제 성공',
+  NO_POST: '게시글이 없습니다.',
+  READ_POST_SUCCESS: '게시글 조회 성공',
+  UPDATE_POST_SUCCESS: '게시글 수정 성공',
 };
