@@ -23,10 +23,8 @@ router.post('/signup', async (req, res) => {
     return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.ALREADY_EMAIL));
   }
 
-  const newUser = { email, name, password };
-
+  const newUser = { id: users.length + 1, email, name, password };
   users.push(newUser);
-
   res.status(sc.OK).send(success(sc.OK, rm.CREATED_USER, newUser));
 });
 
@@ -104,6 +102,25 @@ router.delete('/:id', async (req, res) => {
   const newUsers = users.filter(user => user.id !== Number(id));
 
   res.status(sc.OK).send(success(sc.OK, rm.DELETE_USER, newUsers));
+});
+
+/**
+ * @GET_PROFILE
+ */
+router.get('/profile/:id', async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NULL_VALUE));
+  }
+
+  const user = users.filter(user => user.id === +id)[0];
+
+  if (!user) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_USER));
+  }
+
+  res.status(sc.OK).send(success(sc.OK, rm.READ_PROFILE_SUCCESS, user));
 });
 
 module.exports = router;
