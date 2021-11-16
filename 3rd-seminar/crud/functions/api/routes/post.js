@@ -74,7 +74,7 @@ router.put('/:id', async(req, res) => {
 /**
  * @DELETE_POST
  */
-router.delete(':id', async(req, res) => {
+router.delete('/:id', async(req, res) => {
   const { id } = req.params;
 
   if (!id) {
@@ -86,7 +86,7 @@ router.delete(':id', async(req, res) => {
     return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NO_POST));
   }
 
-  const newPost = posts.filter(post => post.id !== +id)[0];
+  const newPost = posts.filter(post => post.id !== +id);
   res.status(sc.OK).send(success(sc.OK, rm.DELETE_POST, newPost));
 });
 
