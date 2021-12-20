@@ -93,10 +93,10 @@ const deleteUser = async (client, userId) => {
 const addUser = async (client, email, username, phone, idFirebase) => {
   const { rows } = await client.query(
     `
-    INSERT INTO "user" u
+    INSERT INTO "user"
     (email, username, phone, id_firebase)
     VALUES
-    ($1, $2, $3)
+    ($1, $2, $3, $4)
     RETURNING *
     `,
     [email, username, phone, idFirebase],
