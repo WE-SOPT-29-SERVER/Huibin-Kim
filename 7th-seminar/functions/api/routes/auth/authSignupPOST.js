@@ -5,7 +5,7 @@ const sc = require('../../../constants/statusCode');
 const rm = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
 const { userDB } = require('../../../db');
-const jwtHandlers = require('../../../lib/jwtHandler');
+const jwtHandlers = require('../../../lib/jwtHandlers');
 
 module.exports = async (req, res) => {
   const { email, name, phone, password } = req.body;
