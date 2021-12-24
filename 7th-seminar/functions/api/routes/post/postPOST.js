@@ -7,6 +7,7 @@ const { postDB } = require('../../../db');
 
 module.exports = async (req, res) => {
   const { userId, title, content } = req.body;
+  const imageUrls = req.imageUrls; // next()를 통해 넘어온 req.imageUrls
   
   if (!userId || !title || !content) return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.NULL_VALUE));
   
@@ -14,10 +15,10 @@ module.exports = async (req, res) => {
   
   try {
     client = await db.connect(req);
-
-    const post = await postDB.addPost(client, userId, title, content);
+    const post = await postDB.addPost(client, userId, title, content, imageUrls);
     
     res.status(sc.OK).send(success(sc.OK, rm.ADD_ONE_POST_SUCCESS, post));
+
   } catch (error) {
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
     console.log(error);
